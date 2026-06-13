@@ -1,0 +1,104 @@
+---
+// Hero section — names, date, greeting, and nilavilakku divider motif.
+---
+
+<section id="home" class="hero">
+  <div class="hero__inner">
+    <p class="eyebrow">Together with their families</p>
+    <h1 class="hero__names">Vishnu &amp; Apurva</h1>
+    <p class="hero__date">December 12, 2026</p>
+
+    <!-- Nilavilakku (traditional oil lamp) line-art divider -->
+    <svg
+      class="hero__motif"
+      viewBox="0 0 200 120"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label="Nilavilakku, a traditional Kerala oil lamp"
+    >
+      <!-- flame -->
+      <path
+        d="M100 14c-6 8-9 14-9 20a9 9 0 0 0 18 0c0-6-3-12-9-20Z"
+        fill="none"
+        stroke="var(--color-gold)"
+        stroke-width="1.5"
+        stroke-linejoin="round"
+      />
+      <!-- lamp stem -->
+      <line x1="100" y1="43" x2="100" y2="78" stroke="var(--color-gold)" stroke-width="1.5" />
+      <!-- lamp cup -->
+      <path
+        d="M78 78c0 10 10 18 22 18s22-8 22-18"
+        fill="none"
+        stroke="var(--color-gold)"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      />
+      <line x1="78" y1="78" x2="122" y2="78" stroke="var(--color-gold)" stroke-width="1.5" />
+      <!-- base / pedestal -->
+      <path
+        d="M88 96c0 6 5.4 10 12 10s12-4 12-10"
+        fill="none"
+        stroke="var(--color-gold)"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      />
+      <line x1="100" y1="96" x2="100" y2="106" stroke="var(--color-gold)" stroke-width="1.5" />
+      <line x1="84" y1="106" x2="116" y2="106" stroke="var(--color-gold)" stroke-width="1.5" stroke-linecap="round" />
+
+      <!-- decorative side flourishes -->
+      <line x1="10" y1="78" x2="68" y2="78" stroke="var(--color-gold-light)" stroke-width="1.5" stroke-linecap="round" />
+      <line x1="132" y1="78" x2="190" y2="78" stroke="var(--color-gold-light)" stroke-width="1.5" stroke-linecap="round" />
+    </svg>
+
+    <!-- TODO: Replace with final greeting copy from the couple -->
+    <p class="hero__greeting">
+      TODO: With hearts full of joy, we invite you to celebrate the beginning of our forever.
+    </p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding: var(--section-padding-y) var(--section-padding-x);
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero__inner {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hero__names {
+    font-size: var(--fs-display-xl);
+    margin-top: var(--space-3);
+    color: var(--color-maroon);
+  }
+
+  .hero__date {
+    font-family: var(--font-display);
+    font-size: var(--fs-body-lg);
+    letter-spacing: var(--ls-label);
+    color: var(--color-text-secondary);
+    margin-top: var(--space-3);
+  }
+
+  .hero__motif {
+    width: min(100%, 200px);
+    margin: var(--space-7) auto var(--space-6);
+    opacity: var(--motif-opacity-visible);
+  }
+
+  .hero__greeting {
+    font-size: var(--fs-body-lg);
+    color: var(--color-text-secondary);
+    max-width: 32ch;
+    margin-inline: auto;
+  }
+</style>

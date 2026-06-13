@@ -1,0 +1,144 @@
+/*
+  Design tokens — Vishnu & Apurva Wedding Invitation
+  Theme: Minimalist Kerala / Kasavu-inspired
+  - Kasavu sari palette: cream/off-white base, gold (zari) accents, deep maroon/red highlights
+  - Keep contrast accessible (WCAG AA) for text on cream backgrounds
+*/
+
+:root {
+  /* ---------------------------------- */
+  /* COLOR PALETTE                       */
+  /* ---------------------------------- */
+
+  /* Base / surface */
+  --color-cream: #FBF6EC;        /* primary background — off-white kasavu base */
+  --color-cream-deep: #F3E9D4;   /* secondary surface / card background, alt sections */
+  --color-ivory: #FFFDF7;        /* lightest surface, envelope interior */
+
+  /* Gold / zari (border) tones */
+  --color-gold: #C9A227;         /* primary accent — zari gold thread */
+  --color-gold-light: #E8CE7A;   /* highlights, hover states, thin borders */
+  --color-gold-deep: #8A6A16;    /* text-on-cream accents needing more contrast (AA, ~4.7:1 on cream) */
+
+  /* Maroon / red (kasavu border stripe, traditional accent) */
+  --color-maroon: #7A1F2B;       /* primary accent for CTAs, active states, headings accents */
+  --color-maroon-deep: #5A1620;  /* hover/active variant, deepest accent */
+  --color-maroon-light: #B0525F; /* soft accents, subtle dividers on dark bg */
+
+  /* Neutral text */
+  --color-text-primary: #2B2420;   /* near-black warm brown-grey — body text on cream */
+  --color-text-secondary: #6B5E4F; /* muted captions, metadata, dates */
+  --color-text-on-dark: #FBF6EC;   /* text on maroon/dark surfaces */
+
+  /* Functional */
+  --color-border: #E2D3AE;        /* hairline dividers, card borders */
+  --color-shadow: rgba(122, 31, 43, 0.08); /* soft maroon-tinted shadow for cards */
+  --color-overlay: rgba(43, 36, 32, 0.45); /* envelope/modal overlay scrim */
+
+  /* ---------------------------------- */
+  /* TYPOGRAPHY                          */
+  /* ---------------------------------- */
+
+  /* Display/decorative — for names, hero heading, section titles */
+  /* Google Font: "Cormorant Garamond" (elegant serif, good Devanagari-adjacent
+     ornamental feel) — alternative: "Playfair Display" if more contrast wanted */
+  --font-display: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+
+  /* Accent script — optional, for "Vishnu & Apurva" hero lockup only, sparingly */
+  /* Google Font: "Cormorant SC" (small-caps serif) or "Tangerine" for a script feel.
+     Recommend: keep names in Cormorant Garamond at large size + letter-spacing
+     rather than full script font, for readability on mobile. */
+
+  /* Body — clean, highly legible sans-serif for schedule/details/forms */
+  /* Google Font: "Mukta" (has Malayalam-adjacent humanist warmth, supports
+     Latin + Indic scripts well — useful if Malayalam text is added later) */
+  --font-body: 'Mukta', 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Font sizes — mobile-first scale (fluid via clamp) */
+  --fs-display-xl: clamp(2.5rem, 9vw, 4.5rem);   /* hero names */
+  --fs-display-lg: clamp(1.8rem, 6vw, 3rem);     /* section headings */
+  --fs-display-md: clamp(1.4rem, 4.5vw, 2rem);   /* card titles */
+  --fs-body-lg: clamp(1.05rem, 2.5vw, 1.25rem);  /* lead paragraphs */
+  --fs-body: 1rem;                               /* base body text */
+  --fs-body-sm: 0.875rem;                        /* captions, nav labels */
+  --fs-label: 0.75rem;                           /* eyebrow labels, uppercase tags */
+
+  /* Line heights */
+  --lh-display: 1.15;
+  --lh-body: 1.6;
+
+  /* Letter spacing */
+  --ls-display: 0.02em;
+  --ls-label: 0.18em;  /* for uppercase eyebrow text, e.g. "THE WEDDING OF" */
+
+  /* ---------------------------------- */
+  /* SPACING SCALE (8px base)            */
+  /* ---------------------------------- */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.5rem;    /* 24px */
+  --space-6: 2rem;      /* 32px */
+  --space-7: 3rem;      /* 48px */
+  --space-8: 4rem;      /* 64px */
+  --space-9: 6rem;      /* 96px */
+
+  /* Section vertical rhythm */
+  --section-padding-y: clamp(var(--space-7), 10vw, var(--space-9));
+  --section-padding-x: clamp(var(--space-4), 5vw, var(--space-7));
+  --content-max-width: 720px; /* readable column width for prose/schedule */
+  --page-max-width: 1100px;   /* outer container for wider sections (map, gallery) */
+
+  /* ---------------------------------- */
+  /* RADIUS / BORDERS                    */
+  /* ---------------------------------- */
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 20px;          /* invitation card corners */
+  --border-width-hairline: 1px;
+  --border-width-accent: 2px; /* gold/maroon decorative borders */
+
+  /* ---------------------------------- */
+  /* MOTIFS / DECORATIVE                 */
+  /* ---------------------------------- */
+  /* Motif color is always --color-gold or --color-maroon at low opacity for
+     "watermark" placements behind content. Keep stroke-based, single-color,
+     1.5px stroke weight for line-art motifs (temple finial, nilavilakku,
+     leaf/paisley). See "Motifs & Assets" section of design spec for SVG list. */
+  --motif-opacity-subtle: 0.08;
+  --motif-opacity-visible: 0.35;
+  --motif-stroke-width: 1.5;
+
+  /* ---------------------------------- */
+  /* SHADOWS                             */
+  /* ---------------------------------- */
+  --shadow-card: 0 4px 24px var(--color-shadow);
+  --shadow-card-lg: 0 12px 40px var(--color-shadow);
+
+  /* ---------------------------------- */
+  /* TRANSITIONS                         */
+  /* ---------------------------------- */
+  --transition-fast: 150ms ease;
+  --transition-base: 280ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-envelope: 700ms cubic-bezier(0.16, 1, 0.3, 1); /* envelope open animation */
+
+  /* ---------------------------------- */
+  /* Z-INDEX SCALE                       */
+  /* ---------------------------------- */
+  --z-base: 0;
+  --z-nav: 50;
+  --z-envelope: 100;
+  --z-overlay: 90;
+}
+
+/* ---------------------------------- */
+/* REDUCED MOTION                      */
+/* ---------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-base: 0ms;
+    --transition-envelope: 0ms;
+  }
+}

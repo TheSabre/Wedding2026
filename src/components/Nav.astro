@@ -1,0 +1,210 @@
+---
+// Persistent navigation / "option selector".
+// Mobile (<768px): fixed bottom bar. Desktop (>=768px): sticky top bar.
+// Highlights the active section via IntersectionObserver scroll-spy.
+
+const navItems = [
+  { id: 'home', label: 'Home', icon: 'home' },
+  { id: 'schedule', label: 'Schedule', icon: 'clock' },
+  { id: 'location', label: 'Location', icon: 'map-pin' },
+  { id: 'stay', label: 'Stay', icon: 'building' },
+];
+---
+
+<nav class="site-nav" aria-label="Page sections">
+  <ul class="site-nav__list">
+    {
+      navItems.map((item) => (
+        <li class="site-nav__item">
+          <a class="site-nav__link" href={`#${item.id}`} data-nav-target={item.id}>
+            <span class="site-nav__icon" aria-hidden="true">
+              {item.icon === 'home' && (
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M3 11.5L12 4l9 7.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M5.5 10v9a1 1 0 0 0 1 1H9a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h2.5a1 1 0 0 0 1-1v-9"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              )}
+              {item.icon === 'clock' && (
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5" />
+                  <path
+                    d="M12 7v5l3.5 2"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              )}
+              {item.icon === 'map-pin' && (
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 21s-7-5.686-7-11a7 7 0 1 1 14 0c0 5.314-7 11-7 11Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.5" />
+                </svg>
+              )}
+              {item.icon === 'building' && (
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect
+                    x="4"
+                    y="3"
+                    width="16"
+                    height="18"
+                    rx="1"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M8 7h2M14 7h2M8 11h2M14 11h2M8 15h2M14 15h2"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                  <path d="M10 21v-3a2 2 0 0 1 4 0v3" stroke="currentColor" stroke-width="1.5" />
+                </svg>
+              )}
+            </span>
+            <span class="site-nav__label">{item.label}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  .site-nav {
+    position: fixed;
+    z-index: var(--z-nav);
+    background-color: rgba(251, 246, 236, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: var(--border-width-hairline) solid var(--color-border);
+
+    /* mobile: fixed bottom bar */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+  }
+
+  .site-nav__list {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: var(--page-max-width);
+    margin-inline: auto;
+  }
+
+  .site-nav__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-1);
+    min-width: 44px;
+    min-height: 44px;
+    padding: var(--space-2) var(--space-3);
+    text-decoration: none;
+    color: var(--color-text-secondary);
+    transition: color var(--transition-fast);
+  }
+
+  .site-nav__icon svg {
+    width: 22px;
+    height: 22px;
+    display: block;
+  }
+
+  .site-nav__label {
+    font-size: var(--fs-body-sm);
+    font-weight: 500;
+  }
+
+  .site-nav__link.is-active {
+    color: var(--color-maroon);
+  }
+
+  .site-nav__link:hover {
+    color: var(--color-maroon-deep);
+  }
+
+  /* Desktop: sticky top bar */
+  @media (min-width: 768px) {
+    .site-nav {
+      top: 0;
+      bottom: auto;
+      border-top: none;
+      border-bottom: var(--border-width-hairline) solid var(--color-border);
+    }
+
+    .site-nav__list {
+      justify-content: center;
+      gap: var(--space-7);
+    }
+
+    .site-nav__link {
+      flex-direction: row;
+      gap: var(--space-2);
+    }
+
+    .site-nav__icon svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+</style>
+
+<script>
+  const links = Array.from(
+    document.querySelectorAll('[data-nav-target]')
+  ) as HTMLAnchorElement[];
+
+  const sections = links
+    .map((link) => document.getElementById(link.dataset.navTarget ?? ''))
+    .filter((el): el is HTMLElement => el !== null);
+
+  const setActive = (id: string) => {
+    links.forEach((link) => {
+      link.classList.toggle('is-active', link.dataset.navTarget === id);
+    });
+  };
+
+  if (sections.length && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActive(entry.target.id);
+          }
+        });
+      },
+      {
+        rootMargin: '-40% 0px -50% 0px',
+        threshold: 0,
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+  }
+</script>

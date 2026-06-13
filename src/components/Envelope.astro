@@ -1,0 +1,262 @@
+---
+// Full-screen envelope landing overlay.
+// Shown on every fresh page load; dismissed (and hidden for the rest of the
+// session) via sessionStorage once the user opens it.
+---
+
+<div id="envelope-overlay" class="envelope-overlay">
+  <button
+    id="envelope-trigger"
+    class="envelope-trigger"
+    type="button"
+    aria-label="Open wedding invitation"
+  >
+    <div class="envelope-graphic" aria-hidden="true">
+      <svg
+        class="envelope-svg"
+        viewBox="0 0 320 220"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+      >
+        <!-- Envelope body -->
+        <rect
+          x="10"
+          y="20"
+          width="300"
+          height="190"
+          rx="8"
+          fill="var(--color-ivory)"
+          stroke="var(--color-gold)"
+          stroke-width="2"
+        />
+        <!-- Back flap shadow lines -->
+        <path
+          d="M10 28 L160 150 L310 28"
+          fill="none"
+          stroke="var(--color-gold-light)"
+          stroke-width="1.5"
+        />
+        <!-- Front flap (triangle) -->
+        <path
+          id="envelope-flap"
+          class="envelope-flap"
+          d="M10 20 L160 130 L310 20 Z"
+          fill="var(--color-cream-deep)"
+          stroke="var(--color-gold)"
+          stroke-width="2"
+          stroke-linejoin="round"
+        />
+        <!-- Wax seal -->
+        <g id="envelope-seal" class="envelope-seal">
+          <circle cx="160" cy="115" r="26" fill="var(--color-maroon)" />
+          <circle
+            cx="160"
+            cy="115"
+            r="26"
+            fill="none"
+            stroke="var(--color-gold-light)"
+            stroke-width="1.5"
+          />
+          <!-- simple leaf motif -->
+          <path
+            d="M160 100 C168 105 168 118 160 128 C152 118 152 105 160 100 Z"
+            fill="none"
+            stroke="var(--color-gold-light)"
+            stroke-width="1.5"
+          />
+          <line
+            x1="160"
+            y1="103"
+            x2="160"
+            y2="125"
+            stroke="var(--color-gold-light)"
+            stroke-width="1.5"
+          />
+        </g>
+      </svg>
+    </div>
+
+    <div class="envelope-text">
+      <p class="envelope-names">Vishnu &amp; Apurva</p>
+      <p class="envelope-date">12 . 12 . 2026</p>
+      <p class="envelope-prompt">Tap to open</p>
+    </div>
+  </button>
+</div>
+
+<noscript>
+  <style>
+    .envelope-overlay {
+      display: none;
+    }
+  </style>
+</noscript>
+
+<style>
+  .envelope-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-envelope);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-cream);
+    background-image: radial-gradient(
+      circle at center,
+      var(--color-cream-deep) 0%,
+      var(--color-cream) 70%
+    );
+    transition: opacity var(--transition-envelope), visibility var(--transition-envelope);
+  }
+
+  .envelope-overlay.is-open {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .envelope-overlay.is-removed {
+    display: none;
+  }
+
+  .envelope-trigger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-6);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-5);
+    font-family: inherit;
+    color: inherit;
+    transform: scale(1);
+    opacity: 1;
+    transition: transform var(--transition-envelope), opacity var(--transition-envelope);
+  }
+
+  .envelope-overlay.is-open .envelope-trigger {
+    transform: scale(1.08);
+    opacity: 0;
+  }
+
+  .envelope-graphic {
+    width: min(80vw, 320px);
+  }
+
+  .envelope-svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .envelope-flap {
+    transform-origin: 160px 20px;
+    transition: transform var(--transition-envelope), opacity var(--transition-envelope);
+  }
+
+  .envelope-seal {
+    transform-origin: 160px 115px;
+    transition: transform var(--transition-envelope), opacity var(--transition-envelope);
+  }
+
+  .envelope-overlay.is-open .envelope-flap {
+    transform: rotateX(180deg);
+    opacity: 0;
+  }
+
+  .envelope-overlay.is-open .envelope-seal {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+
+  .envelope-text {
+    text-align: center;
+  }
+
+  .envelope-names {
+    font-family: var(--font-display);
+    font-size: var(--fs-display-lg);
+    font-weight: 600;
+    letter-spacing: var(--ls-display);
+    color: var(--color-maroon);
+    margin: 0;
+  }
+
+  .envelope-date {
+    font-family: var(--font-display);
+    font-size: var(--fs-body-lg);
+    letter-spacing: var(--ls-label);
+    color: var(--color-text-secondary);
+    margin: var(--space-2) 0 var(--space-5);
+  }
+
+  .envelope-prompt {
+    font-size: var(--fs-label);
+    letter-spacing: var(--ls-label);
+    text-transform: uppercase;
+    color: var(--color-gold-deep);
+    font-weight: 600;
+    animation: envelope-pulse 2.4s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .envelope-prompt {
+      animation: none;
+    }
+  }
+
+  @keyframes envelope-pulse {
+    0%,
+    100% {
+      opacity: 0.5;
+      transform: translateY(0);
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(-4px);
+    }
+  }
+</style>
+
+<script>
+  const STORAGE_KEY = 'envelope-opened';
+  const overlay = document.getElementById('envelope-overlay');
+  const trigger = document.getElementById('envelope-trigger');
+
+  if (overlay && trigger) {
+    const alreadyOpened = sessionStorage.getItem(STORAGE_KEY) === 'true';
+
+    if (alreadyOpened) {
+      overlay.classList.add('is-open', 'is-removed');
+      document.body.classList.remove('no-scroll');
+    } else {
+      document.body.classList.add('no-scroll');
+    }
+
+    const openEnvelope = () => {
+      if (overlay.classList.contains('is-open')) return;
+
+      sessionStorage.setItem(STORAGE_KEY, 'true');
+      overlay.classList.add('is-open');
+      document.body.classList.remove('no-scroll');
+
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+      const delay = prefersReducedMotion ? 0 : 700;
+
+      window.setTimeout(() => {
+        overlay.classList.add('is-removed');
+      }, delay);
+    };
+
+    trigger.addEventListener('click', openEnvelope);
+    trigger.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
+        event.preventDefault();
+        openEnvelope();
+      }
+    });
+  }
+</script>

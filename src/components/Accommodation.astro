@@ -1,0 +1,162 @@
+---
+// "Where to Stay" section — hotel suggestion cards.
+// Mobile: horizontal scroll-snap carousel. Desktop (>=768px): 3-column grid.
+
+const hotels = [
+  {
+    name: 'TODO: Hotel name 1',
+    distance: 'TODO: Distance from venue',
+    priceTier: 'TODO: Price tier ($ / $$ / $$$)',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=hotels+near+Guruvayoor',
+  },
+  {
+    name: 'TODO: Hotel name 2',
+    distance: 'TODO: Distance from venue',
+    priceTier: 'TODO: Price tier ($ / $$ / $$$)',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=hotels+near+Guruvayoor',
+  },
+  {
+    name: 'TODO: Hotel name 3',
+    distance: 'TODO: Distance from venue',
+    priceTier: 'TODO: Price tier ($ / $$ / $$$)',
+    mapsUrl: 'https://www.google.com/maps/search/?api=1&query=hotels+near+Guruvayoor',
+  },
+];
+---
+
+<section id="stay" class="stay">
+  <div class="section-inner">
+    <h2 class="section-heading">Where to Stay</h2>
+    <p class="stay__intro">
+      TODO: Add a short note about recommended areas to stay and any group
+      booking arrangements.
+    </p>
+  </div>
+
+  <div class="stay__cards">
+    {
+      hotels.map((hotel) => (
+        <article class="stay__card">
+          <div class="stay__image" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect
+                x="4"
+                y="3"
+                width="16"
+                height="18"
+                rx="1"
+                stroke="var(--color-gold-deep)"
+                stroke-width="1.5"
+              />
+              <path
+                d="M8 7h2M14 7h2M8 11h2M14 11h2M8 15h2M14 15h2"
+                stroke="var(--color-gold-deep)"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+              <path d="M10 21v-3a2 2 0 0 1 4 0v3" stroke="var(--color-gold-deep)" stroke-width="1.5" />
+            </svg>
+          </div>
+          <div class="stay__card-body">
+            <h3 class="stay__name">{hotel.name}</h3>
+            <p class="stay__meta">{hotel.distance}</p>
+            <p class="stay__meta">{hotel.priceTier}</p>
+            <a class="stay__link" href={hotel.mapsUrl} target="_blank" rel="noopener noreferrer">
+              View on Maps
+            </a>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .stay {
+    padding: var(--section-padding-y) var(--section-padding-x);
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    background-color: var(--color-cream-deep);
+  }
+
+  .stay__intro {
+    text-align: center;
+    color: var(--color-text-secondary);
+    font-size: var(--fs-body-lg);
+    max-width: 56ch;
+    margin: 0 auto;
+  }
+
+  .stay__cards {
+    display: flex;
+    gap: var(--space-5);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: var(--space-6) var(--space-1);
+    margin-top: var(--space-6);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .stay__card {
+    flex: 0 0 80%;
+    scroll-snap-align: center;
+    background-color: var(--color-cream);
+    border: var(--border-width-hairline) solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+  }
+
+  .stay__image {
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, var(--color-cream-deep), var(--color-gold-light));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .stay__image svg {
+    width: 48px;
+    height: 48px;
+  }
+
+  .stay__card-body {
+    padding: var(--space-5);
+  }
+
+  .stay__name {
+    font-size: var(--fs-display-md);
+    margin-bottom: var(--space-2);
+  }
+
+  .stay__meta {
+    color: var(--color-text-secondary);
+    font-size: var(--fs-body-sm);
+    margin-bottom: var(--space-1);
+  }
+
+  .stay__link {
+    display: inline-block;
+    margin-top: var(--space-3);
+    color: var(--color-maroon);
+    font-weight: 600;
+    font-size: var(--fs-body-sm);
+    text-decoration: underline;
+    text-decoration-color: var(--color-gold-light);
+  }
+
+  @media (min-width: 768px) {
+    .stay__cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      overflow-x: visible;
+      scroll-snap-type: none;
+      max-width: var(--page-max-width);
+      margin-inline: auto;
+    }
+
+    .stay__card {
+      flex: initial;
+    }
+  }
+</style>

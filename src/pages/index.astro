@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Envelope from '../components/Envelope.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Schedule from '../components/Schedule.astro';
+import Location from '../components/Location.astro';
+import Accommodation from '../components/Accommodation.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <Envelope />
+  <Nav />
+  <main>
+    <Hero />
+    <Schedule />
+    <Location />
+    <Accommodation />
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  main {
+    /* leave room for the fixed bottom nav on mobile */
+    padding-bottom: 64px;
+  }
+
+  @media (min-width: 768px) {
+    main {
+      padding-bottom: 0;
+    }
+  }
+</style>
