@@ -1,5 +1,7 @@
 ---
 // Hero section — Om invocation, names with parentage, couple silhouette, and invitation text.
+import ganeshSvg from '../../icons/ganesh.svg?raw';
+const base = import.meta.env.BASE_URL;
 ---
 
 <section id="home" class="hero">
@@ -7,56 +9,7 @@
 
     <!-- Om invocation with Ganesh icon -->
     <div class="hero__invocation">
-      <svg
-        class="ganesh-icon"
-        viewBox="0 0 60 76"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        stroke="var(--color-gold)"
-        stroke-width="1.4"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        role="img"
-        aria-label="Ganesha"
-      >
-        <!-- Crown / Mukut -->
-        <path d="M20 18 L24 10 L30 15 L36 10 L40 18" />
-        <path d="M27 12 L30 7 L33 12" />
-        <!-- Left ear (large) -->
-        <ellipse cx="8" cy="30" rx="7" ry="11" />
-        <!-- Right ear (large) -->
-        <ellipse cx="52" cy="30" rx="7" ry="11" />
-        <!-- Head -->
-        <path d="M15 16 C15 10 22 6 30 6 C38 6 45 10 45 16 L45 42 C45 49 38 54 30 54 C22 54 15 49 15 42 Z" />
-        <!-- Eyes (filled) -->
-        <circle cx="24" cy="28" r="2.5" fill="var(--color-gold)" stroke="none" />
-        <circle cx="36" cy="28" r="2.5" fill="var(--color-gold)" stroke="none" />
-        <!-- Tilaka -->
-        <path d="M27 20 L30 16 L33 20" stroke-width="1" />
-        <!-- Trunk curling to viewer's right (auspicious) -->
-        <path d="M22 44 C18 51 14 57 12 63" />
-        <path d="M12 63 C10 68 14 72 20 68 C24 65 24 61 20 59" />
-        <!-- Tusk (right, partial) -->
-        <path d="M40 48 L48 56" />
-        <!-- Neck -->
-        <line x1="30" y1="54" x2="30" y2="58" />
-        <!-- Body (lambodara – pot belly) -->
-        <path d="M16 58 C12 70 16 78 30 80 C44 78 48 70 44 58 Z" />
-        <!-- Navel dot -->
-        <circle cx="30" cy="72" r="2.5" fill="var(--color-gold)" stroke="none" />
-        <!-- Upper left arm -->
-        <path d="M16 64 L6 56" />
-        <!-- Upper right arm (holds modak) -->
-        <path d="M44 64 L54 56" />
-        <!-- Modak (sweet) -->
-        <path d="M54 56 C52 52 56 50 58 53 C60 56 57 60 54 56 Z" />
-        <!-- Lower left arm -->
-        <path d="M14 70 L4 76" />
-        <!-- Lower right arm -->
-        <path d="M46 70 L56 76" />
-        <!-- Dhoti knot line -->
-        <path d="M18 58 Q30 62 42 58" stroke-width="1" />
-      </svg>
+      <div class="ganesh-icon" role="img" aria-label="Ganesha" set:html={ganeshSvg} />
       <p class="hero__om">ॐ श्री गणेशाय नमः</p>
       <p class="hero__om-latin">Om Shree Ganeshaya Namaha</p>
     </div>
@@ -77,72 +30,15 @@
       </div>
     </div>
 
-    <!-- Bride & Groom silhouette -->
-    <div class="hero__silhouette" aria-hidden="true">
-      <svg
-        viewBox="0 0 240 200"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        stroke="var(--color-gold)"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <!-- ── BRIDE (left, centered x=72) ── -->
-        <!-- Head -->
-        <circle cx="72" cy="28" r="16" />
-        <!-- Hair bun -->
-        <circle cx="83" cy="15" r="8" />
-        <!-- Flower garland in hair -->
-        <circle cx="76" cy="8" r="3" fill="var(--color-gold-light)" stroke="none" />
-        <circle cx="85" cy="6" r="3" fill="var(--color-gold-light)" stroke="none" />
-        <circle cx="92" cy="10" r="3" fill="var(--color-gold-light)" stroke="none" />
-        <!-- Neck -->
-        <line x1="72" y1="44" x2="72" y2="52" />
-        <!-- Necklace -->
-        <path d="M58 54 C58 64 86 64 86 54" />
-        <!-- Body (saree — wider at base) -->
-        <path d="M52 52 L38 190 L106 190 L92 52 Z" />
-        <!-- Pallu draping over left shoulder -->
-        <path d="M86 58 C96 72 95 92 82 100" stroke-width="1.2" />
-        <path d="M82 100 C76 108 74 118 78 130" stroke-width="1.2" />
-        <!-- Bangle left wrist -->
-        <path d="M40 120 C38 116 42 113 46 116 C50 119 48 124 44 124" />
-        <!-- Bangle right wrist -->
-        <path d="M100 120 C98 116 102 113 106 116 C110 119 108 124 104 124" />
-
-        <!-- ── CENTER MOTIF (decorative separator) ── -->
-        <!-- Small lotus between couple -->
-        <circle cx="120" cy="100" r="6" />
-        <path d="M120 94 L120 86 M114 100 L106 100 M126 100 L134 100 M120 106 L120 114" stroke-width="1" />
-        <path d="M115 95 L109 89 M125 95 L131 89 M115 105 L109 111 M125 105 L131 111" stroke-width="1" />
-        <!-- Vertical dotted line suggesting garland -->
-        <circle cx="120" cy="74" r="2" fill="var(--color-gold)" stroke="none" />
-        <circle cx="120" cy="128" r="2" fill="var(--color-gold)" stroke="none" />
-
-        <!-- ── GROOM (right, centered x=168) ── -->
-        <!-- Head -->
-        <circle cx="168" cy="28" r="16" />
-        <!-- Neck -->
-        <line x1="168" y1="44" x2="168" y2="52" />
-        <!-- Angavastram / shawl over left shoulder -->
-        <path d="M152 60 C148 80 146 100 150 120" stroke-width="1.2" />
-        <path d="M150 120 C152 130 156 140 155 155" stroke-width="1.2" />
-        <!-- Body torso (shirt) -->
-        <path d="M150 52 L144 130 L192 130 L186 52 Z" />
-        <!-- Mundu / dhoti (below waist) -->
-        <path d="M144 130 L140 190 L196 190 L192 130 Z" />
-        <!-- Mundu fold line -->
-        <path d="M144 130 Q168 136 192 130" stroke-width="1" />
-        <!-- Right arm holding garland end -->
-        <path d="M186 74 L196 68" />
-        <!-- Left arm gesturing -->
-        <path d="M150 74 L140 68" />
-        <!-- Buttons on shirt -->
-        <circle cx="168" cy="66" r="1.5" fill="var(--color-gold)" stroke="none" />
-        <circle cx="168" cy="76" r="1.5" fill="var(--color-gold)" stroke="none" />
-        <circle cx="168" cy="86" r="1.5" fill="var(--color-gold)" stroke="none" />
-      </svg>
+    <!-- Bride & Groom photo -->
+    <div class="hero__silhouette">
+      <img
+        src={`${base}images/bride_and_groom.jpg`}
+        alt="Bride and Groom"
+        class="hero__couple-photo"
+        loading="lazy"
+        decoding="async"
+      />
     </div>
 
     <p class="hero__date">December 12, 2026</p>
@@ -228,10 +124,24 @@
     margin-bottom: var(--space-7);
   }
 
-  .ganesh-icon {
-    width: 60px;
+  /* Inlined Ganesh SVG — override black fills to gold, hide attribution text */
+  .ganesh-icon :global(svg) {
+    width: 64px;
     height: auto;
-    opacity: 0.85;
+    display: block;
+    margin-inline: auto;
+  }
+
+  .ganesh-icon :global(svg path),
+  .ganesh-icon :global(svg circle),
+  .ganesh-icon :global(svg ellipse),
+  .ganesh-icon :global(svg rect) {
+    fill: var(--color-gold) !important;
+    stroke: none !important;
+  }
+
+  .ganesh-icon :global(svg text) {
+    display: none;
   }
 
   .hero__om {
@@ -295,16 +205,19 @@
     align-self: flex-start;
   }
 
-  /* ── Couple silhouette ── */
+  /* ── Couple photo ── */
   .hero__silhouette {
-    width: min(100%, 320px);
+    width: min(100%, 480px);
     margin: var(--space-6) auto;
-    opacity: 0.75;
   }
 
-  .hero__silhouette svg {
+  .hero__couple-photo {
     width: 100%;
     height: auto;
+    display: block;
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--color-gold-light);
+    box-shadow: var(--shadow-card-lg);
   }
 
   /* ── Date ── */
