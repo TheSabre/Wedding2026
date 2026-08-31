@@ -2,25 +2,33 @@
 // Venue / location section with Google Maps embed and directions link.
 
 const mapsEmbedSrc =
-  'https://www.google.com/maps?q=Guruvayoor+Temple,+Guruvayur,+Kerala&output=embed';
+  'https://www.google.com/maps?q=Elite+Hotel+East+Nada+Guruvayur+Kerala&output=embed';
 const directionsUrl =
-  'https://www.google.com/maps/search/?api=1&query=Guruvayoor+Temple,+Guruvayur,+Kerala';
+  'https://www.google.com/maps/search/?api=1&query=Elite+Hotel,+East+Nada,+Kuppaayil,+Guruvayur,+Kerala+680101';
 ---
 
 <section id="location" class="location">
   <div class="section-inner">
     <h2 class="section-heading">Venue</h2>
 
-    <p class="location__description">
-      TODO: Add full venue address and any notes for guests (parking, nearby
-      landmarks, etc.). Ceremonies will take place in and around Guruvayoor,
-      Kerala.
-    </p>
+    <div class="location__venues">
+      <div class="location__venue-item">
+        <p class="location__venue-label">Thaali Kettu</p>
+        <p class="location__venue-name">Guruvayur Sree Krishna Temple</p>
+        <p class="location__venue-address">East Nada, Guruvayur, Thrissur District, Kerala 680101</p>
+      </div>
+      <div class="location__venue-divider" aria-hidden="true">✦</div>
+      <div class="location__venue-item">
+        <p class="location__venue-label">Wedding Ceremony &amp; Sadya</p>
+        <p class="location__venue-name">Elite Hotel</p>
+        <p class="location__venue-address">East Nada, Kuppaayil, Guruvayur, Kerala 680101</p>
+      </div>
+    </div>
 
     <div class="location__map">
       <iframe
         src={mapsEmbedSrc}
-        title="Map showing Guruvayoor Temple"
+        title="Map showing Elite Hotel, Guruvayur"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
         allowfullscreen
@@ -28,7 +36,7 @@ const directionsUrl =
     </div>
 
     <a class="location__cta" href={directionsUrl} target="_blank" rel="noopener noreferrer">
-      Get Directions
+      Get Directions to Elite Hotel
     </a>
   </div>
 </section>
@@ -40,12 +48,56 @@ const directionsUrl =
     margin: 0 auto;
   }
 
-  .location__description {
+  .location__venues {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-7);
     text-align: center;
+  }
+
+  @media (min-width: 640px) {
+    .location__venues {
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+    }
+  }
+
+  .location__venue-item {
+    flex: 1;
+    max-width: 280px;
+  }
+
+  .location__venue-label {
+    font-family: var(--font-body);
+    font-size: var(--fs-label);
+    letter-spacing: var(--ls-label);
+    text-transform: uppercase;
+    color: var(--color-gold-deep);
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+  }
+
+  .location__venue-name {
+    font-family: var(--font-display);
+    font-size: var(--fs-display-md);
+    color: var(--color-maroon);
+    margin-bottom: var(--space-1);
+  }
+
+  .location__venue-address {
+    font-size: var(--fs-body-sm);
     color: var(--color-text-secondary);
-    font-size: var(--fs-body-lg);
-    max-width: 56ch;
-    margin: 0 auto var(--space-6);
+    line-height: 1.6;
+  }
+
+  .location__venue-divider {
+    color: var(--color-gold-light);
+    font-size: var(--fs-display-md);
+    padding: 0 var(--space-4);
+    align-self: center;
   }
 
   .location__map {

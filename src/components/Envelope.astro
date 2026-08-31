@@ -1,10 +1,17 @@
 ---
 // Full-screen envelope landing overlay.
-// Shown on every fresh page load; dismissed (and hidden for the rest of the
-// session) via sessionStorage once the user opens it.
+// Multi-phase animation: flap opens → card rises → card expands → overlay fades.
+// Shown once per session (sessionStorage).
 ---
 
 <div id="envelope-overlay" class="envelope-overlay">
+  <!-- Invitation card that emerges and expands to cover the screen -->
+  <div class="card-backdrop" aria-hidden="true">
+    <p class="card-backdrop__om">ॐ श्री गणेशाय नमः</p>
+    <p class="card-backdrop__names">Vishnu &amp; Apurva</p>
+    <p class="card-backdrop__date">December 12, 2026</p>
+  </div>
+
   <button
     id="envelope-trigger"
     class="envelope-trigger"
@@ -57,21 +64,17 @@
             stroke="var(--color-gold-light)"
             stroke-width="1.5"
           />
-          <!-- simple leaf motif -->
+          <!-- Ganesh trunk motif on seal -->
           <path
-            d="M160 100 C168 105 168 118 160 128 C152 118 152 105 160 100 Z"
+            d="M153 103 C148 108 146 116 150 122 C152 125 156 125 158 122"
             fill="none"
             stroke="var(--color-gold-light)"
             stroke-width="1.5"
+            stroke-linecap="round"
           />
-          <line
-            x1="160"
-            y1="103"
-            x2="160"
-            y2="125"
-            stroke="var(--color-gold-light)"
-            stroke-width="1.5"
-          />
+          <ellipse cx="155" cy="100" rx="8" ry="10" fill="none" stroke="var(--color-gold-light)" stroke-width="1.2"/>
+          <ellipse cx="145" cy="102" rx="5" ry="7" fill="none" stroke="var(--color-gold-light)" stroke-width="1"/>
+          <ellipse cx="165" cy="102" rx="5" ry="7" fill="none" stroke="var(--color-gold-light)" stroke-width="1"/>
         </g>
       </svg>
     </div>
@@ -106,20 +109,93 @@
       var(--color-cream-deep) 0%,
       var(--color-cream) 70%
     );
-    transition: opacity var(--transition-envelope), visibility var(--transition-envelope);
+    transition: opacity 0.8s ease, visibility 0.8s ease;
   }
 
-  .envelope-overlay.is-open {
+  /* ── Card backdrop that rises and expands ── */
+  .card-backdrop {
+    position: fixed;
+    inset: 0;
+    background: var(--color-ivory);
+    /* Start: small card shape near bottom-center (behind envelope) */
+    clip-path: inset(40% 28% 10% 28% round 12px);
+    opacity: 0;
+    z-index: 1; /* above the trigger button's background */
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    transition: opacity 0.5s ease;
+  }
+
+  .card-backdrop__om {
+    font-family: var(--font-display);
+    font-size: var(--fs-display-md);
+    color: var(--color-gold-deep);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s;
+  }
+
+  .card-backdrop__names {
+    font-family: var(--font-display);
+    font-size: var(--fs-display-lg);
+    font-weight: 600;
+    color: var(--color-maroon);
+    letter-spacing: var(--ls-display);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s;
+  }
+
+  .card-backdrop__date {
+    font-family: var(--font-display);
+    font-size: var(--fs-body-lg);
+    color: var(--color-text-secondary);
+    letter-spacing: var(--ls-label);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.5s ease 0.6s, transform 0.5s ease 0.6s;
+  }
+
+  /* Phase: flap opens → card appears as small card (rising from envelope) */
+  .envelope-overlay.phase-card .card-backdrop {
+    opacity: 1;
+    clip-path: inset(16% 12% 16% 12% round 16px);
+    transition: opacity 0.4s ease,
+      clip-path 1.1s cubic-bezier(0.25, 1, 0.3, 1);
+  }
+
+  .envelope-overlay.phase-card .card-backdrop__om,
+  .envelope-overlay.phase-card .card-backdrop__names,
+  .envelope-overlay.phase-card .card-backdrop__date {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Phase: card expands to fill the entire screen */
+  .envelope-overlay.phase-expand .card-backdrop {
+    opacity: 1;
+    clip-path: inset(0% 0% 0% 0% round 0px);
+    transition: clip-path 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Phase: entire overlay fades out revealing website */
+  .envelope-overlay.phase-done {
     opacity: 0;
     visibility: hidden;
-    pointer-events: none;
   }
 
   .envelope-overlay.is-removed {
     display: none;
   }
 
+  /* ── Envelope trigger ── */
   .envelope-trigger {
+    position: relative;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -130,14 +206,14 @@
     padding: var(--space-5);
     font-family: inherit;
     color: inherit;
-    transform: scale(1);
     opacity: 1;
-    transition: transform var(--transition-envelope), opacity var(--transition-envelope);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .envelope-overlay.is-open .envelope-trigger {
-    transform: scale(1.08);
+  .envelope-overlay.phase-flap .envelope-trigger {
     opacity: 0;
+    transform: scale(0.92) translateY(-8px);
   }
 
   .envelope-graphic {
@@ -152,24 +228,27 @@
 
   .envelope-flap {
     transform-origin: 160px 20px;
-    transition: transform var(--transition-envelope), opacity var(--transition-envelope);
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.6s ease;
   }
 
   .envelope-seal {
     transform-origin: 160px 115px;
-    transition: transform var(--transition-envelope), opacity var(--transition-envelope);
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.8, 0.6),
+      opacity 0.5s ease;
   }
 
-  .envelope-overlay.is-open .envelope-flap {
+  .envelope-overlay.phase-flap .envelope-flap {
     transform: rotateX(180deg);
     opacity: 0;
   }
 
-  .envelope-overlay.is-open .envelope-seal {
-    transform: scale(0.4);
+  .envelope-overlay.phase-flap .envelope-seal {
+    transform: scale(0.2);
     opacity: 0;
   }
 
+  /* ── Text below envelope ── */
   .envelope-text {
     text-align: center;
   }
@@ -221,34 +300,57 @@
 
 <script>
   const STORAGE_KEY = 'envelope-opened';
-  const overlay = document.getElementById('envelope-overlay');
-  const trigger = document.getElementById('envelope-trigger');
+  const overlay = document.getElementById('envelope-overlay') as HTMLElement | null;
+  const trigger = document.getElementById('envelope-trigger') as HTMLButtonElement | null;
 
   if (overlay && trigger) {
     const alreadyOpened = sessionStorage.getItem(STORAGE_KEY) === 'true';
 
     if (alreadyOpened) {
-      overlay.classList.add('is-open', 'is-removed');
+      overlay.classList.add('is-removed');
       document.body.classList.remove('no-scroll');
     } else {
       document.body.classList.add('no-scroll');
     }
 
     const openEnvelope = () => {
-      if (overlay.classList.contains('is-open')) return;
+      if (overlay.classList.contains('phase-flap')) return;
 
       sessionStorage.setItem(STORAGE_KEY, 'true');
-      overlay.classList.add('is-open');
-      document.body.classList.remove('no-scroll');
 
       const prefersReducedMotion = window.matchMedia(
         '(prefers-reduced-motion: reduce)'
       ).matches;
-      const delay = prefersReducedMotion ? 0 : 700;
 
+      if (prefersReducedMotion) {
+        overlay.classList.add('phase-done', 'is-removed');
+        document.body.classList.remove('no-scroll');
+        return;
+      }
+
+      // Phase 1: Flap opens + trigger fades (0–900ms)
+      overlay.classList.add('phase-flap');
+
+      // Phase 2: Card rises from envelope (800–1900ms)
+      window.setTimeout(() => {
+        overlay.classList.add('phase-card');
+      }, 800);
+
+      // Phase 3: Card expands to fill screen (1700–2900ms)
+      window.setTimeout(() => {
+        overlay.classList.add('phase-expand');
+      }, 1700);
+
+      // Phase 4: Overlay fades out, website revealed (2800ms+)
+      window.setTimeout(() => {
+        overlay.classList.add('phase-done');
+        document.body.classList.remove('no-scroll');
+      }, 2800);
+
+      // Remove overlay from DOM after animation (3600ms)
       window.setTimeout(() => {
         overlay.classList.add('is-removed');
-      }, delay);
+      }, 3700);
     };
 
     trigger.addEventListener('click', openEnvelope);

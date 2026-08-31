@@ -33,6 +33,14 @@ body {
   color: var(--color-text-primary);
   background-color: var(--color-cream);
   -webkit-font-smoothing: antialiased;
+  /* Inset content so it doesn't sit under the golden border frame */
+  padding: 20px;
+}
+
+@media (max-width: 767px) {
+  body {
+    padding: 12px;
+  }
 }
 
 body.no-scroll {

@@ -1,44 +1,43 @@
 ---
-// Footer — maroon background, cream text (inverted palette).
+// Footer — warm teak/sandalwood background, cream text.
 ---
 
 <footer class="footer">
   <div class="footer__border" aria-hidden="true">
-    <svg viewBox="0 0 400 16" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <line x1="0" y1="2" x2="400" y2="2" stroke="var(--color-gold-light)" stroke-width="1.5" />
-      <line x1="0" y1="14" x2="400" y2="14" stroke="var(--color-gold-light)" stroke-width="1.5" />
-      <g stroke="var(--color-gold-light)" stroke-width="1.5" fill="none">
-        <path d="M10 8c4-4 8-4 12 0c-4 4-8 4-12 0Z" />
-        <path d="M50 8c4-4 8-4 12 0c-4 4-8 4-12 0Z" />
-        <path d="M90 8c4-4 8-4 12 0c-4 4-8 4-12 0Z" />
-        <path d="M130 8c4-4 8-4 12 0c-4 4-8 4-12 0Z" />
-        <path d="M170 8c4-4 8-4 12 0c-4 4-8 4-12 0Z" />
-        <path d="M210 8c4-4 8-4 12 0c-4 4-8 4-12 0Z" />
-        <path d="M250 8c4-4 8-4 12 0c-4 4-8 4-12 0Z" />
-        <path d="M290 8c4-4 8-4 12 0c-4 4-8 4-12 0Z" />
-        <path d="M330 8c4-4 8-4 12 0c-4 4-8 4-12 0Z" />
-        <path d="M370 8c4-4 8-4 12 0c-4 4-8 4-12 0Z" />
+    <svg viewBox="0 0 400 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="3" x2="400" y2="3" stroke="var(--color-gold)" stroke-width="1.5" />
+      <line x1="0" y1="17" x2="400" y2="17" stroke="var(--color-gold-light)" stroke-width="1" />
+      <g stroke="var(--color-gold)" stroke-width="1.2" fill="none">
+        <path d="M10 10c3-4 7-4 10 0c-3 4-7 4-10 0Z" />
+        <path d="M50 10c3-4 7-4 10 0c-3 4-7 4-10 0Z" />
+        <path d="M90 10c3-4 7-4 10 0c-3 4-7 4-10 0Z" />
+        <path d="M130 10c3-4 7-4 10 0c-3 4-7 4-10 0Z" />
+        <path d="M170 10c3-4 7-4 10 0c-3 4-7 4-10 0Z" />
+        <path d="M210 10c3-4 7-4 10 0c-3 4-7 4-10 0Z" />
+        <path d="M250 10c3-4 7-4 10 0c-3 4-7 4-10 0Z" />
+        <path d="M290 10c3-4 7-4 10 0c-3 4-7 4-10 0Z" />
+        <path d="M330 10c3-4 7-4 10 0c-3 4-7 4-10 0Z" />
+        <path d="M370 10c3-4 7-4 10 0c-3 4-7 4-10 0Z" />
       </g>
     </svg>
   </div>
 
   <div class="footer__content">
-    <!-- TODO: Replace with final thank-you message from the couple -->
-    <p class="footer__thanks">
-      TODO: Thank you for being part of our story — we can't wait to celebrate
-      with you.
+    <p class="footer__blessing">
+      May the blessings of Guruvayurappan be upon you and your family.
     </p>
     <p class="footer__names">Vishnu &amp; Apurva</p>
-    <p class="footer__date">December 12, 2026</p>
+    <p class="footer__date">December 12, 2026 · Guruvayur, Kerala</p>
+    <p class="footer__families">With Best Wishes from Pisharody and Nambiar Families</p>
   </div>
 </footer>
 
 <style>
   .footer {
-    background-color: var(--color-maroon);
+    /* Warm sandalwood / teak — complements kasavu cream palette */
+    background-color: #3B2416;
     color: var(--color-text-on-dark);
     text-align: center;
-    /* extra bottom padding so content clears the fixed mobile nav */
     padding: var(--space-7) var(--section-padding-x)
       calc(var(--space-7) + 64px);
   }
@@ -46,28 +45,33 @@
   .footer__border {
     max-width: var(--page-max-width);
     margin: 0 auto var(--space-6);
-    opacity: var(--motif-opacity-visible);
   }
 
   .footer__border svg {
     width: 100%;
-    height: 16px;
+    height: 20px;
   }
 
   .footer__content {
     max-width: var(--content-max-width);
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
   }
 
-  .footer__thanks {
+  .footer__blessing {
+    font-family: var(--font-display);
     font-size: var(--fs-body-lg);
-    margin-bottom: var(--space-6);
+    color: var(--color-gold-light);
+    font-style: italic;
   }
 
   .footer__names {
     font-family: var(--font-display);
     font-size: var(--fs-display-md);
     color: var(--color-text-on-dark);
+    letter-spacing: var(--ls-display);
   }
 
   .footer__date {
@@ -75,12 +79,18 @@
     letter-spacing: var(--ls-label);
     font-size: var(--fs-body-sm);
     color: var(--color-gold-light);
-    margin-top: var(--space-2);
+  }
+
+  .footer__families {
+    font-size: var(--fs-body-sm);
+    color: rgba(251, 246, 236, 0.6);
+    letter-spacing: 0.04em;
+    padding-top: var(--space-3);
+    border-top: 1px solid rgba(201, 162, 39, 0.25);
   }
 
   @media (min-width: 768px) {
     .footer {
-      /* no fixed bottom nav on desktop */
       padding-bottom: var(--space-7);
     }
   }
