@@ -1,6 +1,6 @@
 ---
 // Hero section — Om invocation, names with parentage, couple silhouette, and invitation text.
-import ganeshSvg from '../../icons/ganesh.svg';
+import ganeshSvg from '../../icons/ganesh.png';
 import brideGroomImg from '../../images/bride_and_groom.png';
 ---
 
@@ -9,7 +9,7 @@ import brideGroomImg from '../../images/bride_and_groom.png';
 
     <!-- Om invocation with Ganesh icon -->
     <div class="hero__invocation">
-      <div class="ganesh-icon" role="img" aria-label="Ganesha" set:html={ganeshSvg} />
+      <img src={ganeshSvg} class="ganesh-icon" alt="Ganesha" width="64" height="64" />
       <p class="hero__om">ॐ श्री गणेशाय नमः</p>
       <p class="hero__om-latin">Om Shree Ganeshaya Namaha</p>
     </div>
