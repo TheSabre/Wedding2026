@@ -16,3 +16,7 @@ npm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# Claude Code project config
+.claude/
+CLAUDE.md
