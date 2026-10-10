@@ -9,7 +9,7 @@ import brideGroomImg from '../../images/bride_and_groom.png';
 
     <!-- Om invocation with Ganesh icon -->
     <div class="hero__invocation">
-      <img src={ganeshSvg} class="ganesh-icon" alt="Ganesha" width="64" height="64" />
+      <img src={ganeshSvg.src ?? ganeshSvg} class="ganesh-icon" alt="Ganesha" width="64" height="64" />
       <p class="hero__om">ॐ श्री गणेशाय नमः</p>
       <p class="hero__om-latin">Om Shree Ganeshaya Namaha</p>
     </div>
@@ -21,12 +21,12 @@ import brideGroomImg from '../../images/bride_and_groom.png';
     <div class="hero__couple-names">
       <div class="hero__person">
         <h1 class="hero__name">Vishnu</h1>
-        <p class="hero__parentage">S/o Mr T.P Sasidharan<br />and Jaya Pisharody</p>
+        <p class="hero__parentage">S/o. Mrs. Jaya Sasidharan &amp; Mr. Sasidharan T. P.<br />Grandson of Late Smt. Lakshmikutty Pisharassiar &amp; Late Shri K N Pisharody<br />&amp; Late Smt. Subhadra Pisharassiar &amp; Late Shri Rama Pisharody</p>
       </div>
       <span class="hero__ampersand">&amp;</span>
       <div class="hero__person">
         <h1 class="hero__name">Apurva</h1>
-        <p class="hero__parentage">D/o Mr P.M Gangadharan Nambiar<br />and Bhanu Nambiar</p>
+        <p class="hero__parentage">Grand daughter of Smt. P. M. Prema Nambiar &amp; Shri K. M. Nambiar<br />&amp; Late Smt. K. K. Sreedevi Amma &amp; Late Shri K. K. Kunhappan Nambiar</p>
       </div>
     </div>
 
@@ -124,24 +124,12 @@ import brideGroomImg from '../../images/bride_and_groom.png';
     margin-bottom: var(--space-7);
   }
 
-  /* Inlined Ganesh SVG — override black fills to gold, hide attribution text */
-  .ganesh-icon :global(svg) {
+  .ganesh-icon {
     width: 64px;
     height: auto;
     display: block;
     margin-inline: auto;
-  }
-
-  .ganesh-icon :global(svg path),
-  .ganesh-icon :global(svg circle),
-  .ganesh-icon :global(svg ellipse),
-  .ganesh-icon :global(svg rect) {
-    fill: var(--color-gold) !important;
-    stroke: none !important;
-  }
-
-  .ganesh-icon :global(svg text) {
-    display: none;
+    mix-blend-mode: multiply;
   }
 
   .hero__om {
