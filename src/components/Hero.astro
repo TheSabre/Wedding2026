@@ -125,7 +125,7 @@ import brideGroomImg from '../../images/bride_and_groom.png';
   }
 
   .ganesh-icon {
-    width: 64px;
+    width: 192px;
     height: auto;
     display: block;
     margin-inline: auto;
@@ -157,10 +157,9 @@ import brideGroomImg from '../../images/bride_and_groom.png';
   /* ── Couple names ── */
   .hero__couple-names {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     gap: var(--space-5);
-    flex-wrap: wrap;
     margin-bottom: var(--space-6);
   }
 
@@ -169,6 +168,7 @@ import brideGroomImg from '../../images/bride_and_groom.png';
     flex-direction: column;
     align-items: center;
     gap: var(--space-2);
+    flex: 1;
   }
 
   .hero__name {
@@ -189,8 +189,8 @@ import brideGroomImg from '../../images/bride_and_groom.png';
     font-family: var(--font-display);
     font-size: var(--fs-display-lg);
     color: var(--color-gold);
-    margin-top: var(--space-3);
-    align-self: flex-start;
+    align-self: center;
+    flex-shrink: 0;
   }
 
   /* ── Couple photo ── */
